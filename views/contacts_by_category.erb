@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>your page title goes here</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        <%= @category %>
+      </h1>
+    </header>
+    <main>
+      <ul>
+        <% @contacts.each do |contact| %>
+          <li><a href="/contacts/<%= contact[:id] %>"><%= contact[:name] %></a></li>
+        <% end %>
+      </ul>
+    </main>
+  </body>
+</html>

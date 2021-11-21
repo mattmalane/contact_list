@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Contacts</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <header>
+      <h1>Contacts</h1>
+      <div>
+        <p><a href="/contacts/add">Add a Contact</a></p>
+      </div>
+      <div>
+        <form action="/contacts/category" method="post">
+          <p>Find contacts by category</p>
+          <input type="radio" name="category" value=1>
+          <label for="category">Friends</label>
+
+          <input type="radio" name="category" value=2>
+          <label for="category">Family</label>
+
+          <input type="radio" name="category" value=3>
+          <label for="category">Work</label>
+
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+    </header>
+    <main>
+      <ul>
+        <% @contacts.each do |contact| %>
+          <li><a href="/contacts/<%= contact[:id] %>"><%= contact[:name] %></a></li>
+        <% end %>
+      </ul>
+    </main>
+  </body>
+</html>
