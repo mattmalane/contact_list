@@ -7,10 +7,6 @@ before do
   @storage = DatabasePersistence.new(logger)
 end
 
-after do
-  @storage.disconnect
-end
-
 configure(:development) do
   require "sinatra/reloader"
   also_reload "database_persistence.rb"
@@ -36,6 +32,23 @@ get "/contacts/:id" do
   erb :contact_info
 end
 
+get "/contacts/:id/edit" do
+  contact_id = params[:id].to_i
+  @contact_info = @storage.list_contact_info(contact_id)
+  erb :edit
+end
+
+post "/contacts/:id/edit" do
+  @storage.update_contact_info(params)
+  params.inspect
+  redirect "/contacts/#{params['id']}"
+end
+
+post "/contacts/:id/delete" do
+  @storage.delete_contact(params[:id])
+  redirect "/contacts"
+end
+
 post "/contacts/add" do
   @storage.add_contact_info(params)
   redirect "/contacts"
@@ -51,4 +64,8 @@ get "/contacts/category/:category_id" do
   @contacts = @storage.list_contacts_by_category(category_id)
   @category = @contacts.first[:category].capitalize
   erb :contacts_by_category
+end
+
+after do
+  @storage.disconnect
 end

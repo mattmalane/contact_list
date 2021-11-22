@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>your page title goes here</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>Edit Contact: <%= @contact_info[:name] %></h1>
+    <form action="/contacts/<%= @contact_info[:id] %>/edit" method="post">
+      <label for="name">
+        Name:
+        <input type="text" name="name" value="<%= @contact_info[:name] %>">
+      </label><br>
+
+      <label for="phone">
+        Phone Number:
+        <input type="text" name="phone" value="<%= @contact_info[:phone] %>">
+      </label><br>
+
+      <label for="email">
+        Email Address:
+        <input type="text" name="email" value="<%= @contact_info[:email] %>">
+      </label><br>
+
+      <input type="submit" value="Submit Changes">
+    </form>
+  </body>
+</html>

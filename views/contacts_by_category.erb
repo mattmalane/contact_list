@@ -11,11 +11,17 @@
       </h1>
     </header>
     <main>
-      <ul>
-        <% @contacts.each do |contact| %>
-          <li><a href="/contacts/<%= contact[:id] %>"><%= contact[:name] %></a></li>
-        <% end %>
-      </ul>
+      <% if @contacts.first[:name].nil? %>
+        <p>You do not have any contacts in this category.</p>
+      <% else %>
+        <ul>
+          <% @contacts.each do |contact| %>
+            <% if contact[:id] %>
+              <li><a href="/contacts/<%= contact[:id] %>"><%= contact[:name] %></a></li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
     </main>
   </body>
 </html>

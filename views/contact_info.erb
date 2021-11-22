@@ -11,6 +11,16 @@
     <main>
       <p>Phone Number: <%= @contact_info[:phone] %>
       <p>Email Address: <%= @contact_info[:email] %>
+      <form action="/contacts/<%= @contact_info[:id] %>/edit" method="get">
+        <label>
+          <input type="submit" value="Edit">
+        </label>
+      </form>
+      <form action="/contacts/<%= @contact_info[:id] %>/delete" method="post">
+      <label>
+        <input type="submit" value="Delete">
+      </label>
+    </form>
     </main>
   </body>
 </html>

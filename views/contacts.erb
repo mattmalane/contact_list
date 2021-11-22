@@ -10,6 +10,13 @@
       <div>
         <p><a href="/contacts/add">Add a Contact</a></p>
       </div>
+    </header>
+    <main>
+      <ul>
+        <% @contacts.each do |contact| %>
+          <li><a href="/contacts/<%= contact[:id] %>"><%= contact[:name] %></a></li>
+        <% end %>
+      </ul>
       <div>
         <form action="/contacts/category" method="post">
           <p>Find contacts by category</p>
@@ -25,13 +32,6 @@
           <input type="submit" value="Submit">
         </form>
       </div>
-    </header>
-    <main>
-      <ul>
-        <% @contacts.each do |contact| %>
-          <li><a href="/contacts/<%= contact[:id] %>"><%= contact[:name] %></a></li>
-        <% end %>
-      </ul>
     </main>
   </body>
 </html>

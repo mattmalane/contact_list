@@ -23,6 +23,22 @@ class DatabasePersistence
     query(sql, contact_info["name"], contact_info["phone"], contact_info["email"], contact_info["category"].to_i)
   end
 
+  def update_contact_info(contact_info)
+    sql = <<~SQL
+      UPDATE contacts
+      SET name = $1,
+          phone_number = $2,
+          email_address = $3
+      WHERE id = $4
+    SQL
+    query(sql, contact_info["name"], contact_info["phone"], contact_info["email"], contact_info["id"])
+  end
+
+  def delete_contact(id)
+    sql = "DELETE FROM contacts WHERE id = $1"
+    query(sql, id)
+  end
+
   def list_all_contacts
     result = @db.exec("SELECT * FROM contacts")
     result.map do |tuple|
@@ -37,7 +53,8 @@ class DatabasePersistence
     sql = "SELECT * FROM contacts WHERE id = $1"
     result = query(sql, id)
     result.map do |tuple|
-      {name: tuple["name"],
+      {id: tuple["id"],
+       name: tuple["name"],
        phone: tuple["phone_number"],
        email: tuple["email_address"]}
     end.first
@@ -47,9 +64,10 @@ class DatabasePersistence
     sql = <<~SQL
       SELECT contacts.*, category.name AS category
       FROM contacts
-      JOIN category
+      RIGHT JOIN category
       ON contacts.category_id = category.id
-      WHERE contacts.category_id = $1
+      WHERE contacts.category_id = $1 OR
+            contacts.category_id IS NULL
     SQL
 
     result = query(sql, category_id)
