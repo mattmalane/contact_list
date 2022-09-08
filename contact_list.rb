@@ -2,7 +2,7 @@ require "sinatra"
 require "tilt/erubis"
 
 require_relative "database_persistence"
-
+set :environment, :production
 before do
   @storage = DatabasePersistence.new(logger)
 end
